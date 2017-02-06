@@ -50,16 +50,17 @@ def main():
 
     ncastles = int(sys.argv[1])
     nsoldiers = int(sys.argv[2])
-    userejects = True
+    userejects = False
     strategies = np.array(list(balls_in_boxes(nsoldiers, ncastles)),dtype=np.int)
 
 
     points=np.arange(ncastles,dtype=np.int)+1
 
-    if(ncastles!=5 and nsoldiers!=50 and userejects:
+    if((ncastles!=5 or nsoldiers!=50) and userejects):
         raise ValueError("Note: the rejects is tuned for 5, 50. Set userejects=False to run this")
 
-    strategies=filter(strategies,rejects.rejects(), points)
+    if userejects:
+        strategies=filter(strategies,rejects.rejects(), points)
 
     score_strategies(strategies,points)
     e = timer()
